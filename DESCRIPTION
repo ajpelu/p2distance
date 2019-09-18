@@ -9,3 +9,9 @@ Description: The welfare's synthetic indicator provides an ideal tool for measur
 License: GPL
 LazyLoad: yes
 Packaged: 2012-08-08 07:15:47 UTC; rperez
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/ajpelu/p2distance
+BugReports: https://github.com/ajpelu/p2distance/issues
