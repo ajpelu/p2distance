@@ -1,0 +1,15 @@
+citHeader("To cite p2distance in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "p2distance: Welfare's Synthetic Indicator",
+  author   = personList(as.person("Antonio J. Pérez-Luque"),
+  as.person("Ricardo Moreno"), as.person("Ramón Pérez-Pérez"),
+  as.person("Francisco J. Bonet-García")),
+  year     = 2012,
+  note = "R package version 1.0.1",
+  url = "https://CRAN.R-project.org/package=p2distance",
+  key = "p2distance-package",
+  textVersion = 
+  paste("Pérez-Luque Antonio J., Moreno R., Pérez-Pérez R., Bonet-García F.J. (2012). p2distance: Welfare's Synthetic Indicator. R package version 1.0.1. https://CRAN.R-project.org/package=p2distance")
+)
