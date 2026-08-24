@@ -1,0 +1,72 @@
+# p2distance
+
+The goal of p2distance is to …
+
+## Installation
+
+You can install the released version of p2distance from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+
+install.packages("p2distance")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("devtools")
+devtools::install_github("ajpelu/p2distance")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+
+library(p2distance)
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`?
+You can include R chunks like so:
+
+``` r
+
+summary(cars)
+#>      speed           dist       
+#>  Min.   : 4.0   Min.   :  2.00  
+#>  1st Qu.:12.0   1st Qu.: 26.00  
+#>  Median :15.0   Median : 36.00  
+#>  Mean   :15.4   Mean   : 42.98  
+#>  3rd Qu.:19.0   3rd Qu.: 56.00  
+#>  Max.   :25.0   Max.   :120.00
+```
+
+You’ll still need to render `README.Rmd` regularly, to keep `README.md`
+up-to-date.
+
+You can also embed plots, for example:
+
+![](reference/figures/README-pressure-1.png)
+
+In that case, don’t forget to commit and push the resulting figure
+files, so they display on GitHub!
+
+# Package index
+
+## All functions
+
+- [`loadCSVtoP2distance()`](https://ajpelu.github.io/p2distance/reference/loadCSVtoP2distance.md)
+  : Load CSV file to matrix object
+- [`makeReferenceVector()`](https://ajpelu.github.io/p2distance/reference/makeReferenceVector.md)
+  : Make a reference vector
+- [`p2distance-package`](https://ajpelu.github.io/p2distance/reference/p2distance-package.md)
+  : Welfare's Synthetic Indicator \~~ p2distance \~~
+- [`p2distance()`](https://ajpelu.github.io/p2distance/reference/p2distance.md)
+  : Welfare's Synthetic Indicator function
+- [`welfare`](https://ajpelu.github.io/p2distance/reference/welfare.md)
+  : Welfare Indicators of European Countries
+
