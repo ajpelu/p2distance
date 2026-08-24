@@ -1,2 +1,4 @@
 exportPattern("^[[:alpha:]]+")
 export(loadCSVtoP2distance, p2distance, makeReferenceVector)
+importFrom("stats", "cor", "lm", "sd")
+importFrom("utils", "read.table")
