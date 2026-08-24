@@ -51,39 +51,86 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of p2distance is to …</p>
+<p><code>p2distance</code> computes the <strong>P2 distance</strong> synthetic indicator (Peña, 1977), a method for combining several partial indicators — quality of life, welfare, environmental quality, development, and so on — into a single measure that lets you compare different entities (countries, regions, cities…) on a common scale.</p>
+<p>Unlike Principal Component Analysis or other traditional aggregation methods, P2 distance avoids arbitrary weighting: each variable is weighted by how much <em>new</em> information it contributes once the variables already included are accounted for, using an iterative correction based on each variable’s coefficient of determination (R²).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of p2distance from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<p>Install the released version from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"p2distance"</span><span class="op">)</span></span></code></pre></div>
-<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Or the development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ajpelu/p2distance"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"ajpelu/p2distance"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p><code>p2distance</code> ships with <code>welfare</code>, a dataset of 20 quality-of-life indicators for the 27 countries of the European Union (2002-2007, EurLIFE). Let’s rank countries by an overall welfare indicator:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ajpelu/p2distance" class="external-link">p2distance</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">welfare</span><span class="op">)</span></span>
+<span><span class="va">welfare_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">welfare</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/p2distance.html">p2distance</a></span><span class="op">(</span><span class="va">welfare_mat</span>, reference_vector_function <span class="op">=</span> <span class="va">min</span>, iterations <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Iteration 1"</span></span>
+<span><span class="co">#&gt; [1] "Iteration 2"</span></span>
+<span><span class="co">#&gt; [1] "Iteration 3"</span></span>
+<span><span class="co">#&gt; [1] "Iteration 4"</span></span>
+<span></span>
+<span><span class="co"># Ranking (higher P2 distance = further from the reference = lower welfare)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">ind</span><span class="op">$</span><span class="va">p2distance</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      Bulgaria        Latvia       Hungary     Lithuania       Romania </span></span>
+<span><span class="co">#&gt;      3.300577      5.881641      6.157913      6.728374      7.855658 </span></span>
+<span><span class="co">#&gt;        Poland        Greece      Slovakia      Portugal       Estonia </span></span>
+<span><span class="co">#&gt;      9.072606      9.467627      9.584544      9.927800     10.014157 </span></span>
+<span><span class="co">#&gt; CzechRepublic         Italy      Slovenia         Spain       Germany </span></span>
+<span><span class="co">#&gt;     10.595075     10.822846     12.005987     12.653989     12.882661 </span></span>
+<span><span class="co">#&gt;       Ireland UnitedKingdom        France         Malta        Cyprus </span></span>
+<span><span class="co">#&gt;     13.186726     13.817885     14.106968     14.124929     14.196170 </span></span>
+<span><span class="co">#&gt;       Belgium       Austria   Netherlands    Luxembourg       Finland </span></span>
+<span><span class="co">#&gt;     14.205152     14.243429     15.096630     15.608905     16.014650 </span></span>
+<span><span class="co">#&gt;        Sweden       Denmark </span></span>
+<span><span class="co">#&gt;     16.225990     17.932001</span></span></code></pre></div>
+<p>Each variable’s contribution to the indicator can also be inspected — here, how strongly each partial indicator correlates with the overall P2 distance:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      speed           dist       </span></span>
-<span><span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span></span>
-<span><span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span></span>
-<span><span class="co">#&gt;  Median :15.0   Median : 36.00  </span></span>
-<span><span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span></span>
-<span><span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date.</p>
-<p>You can also embed plots, for example:</p>
-<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub!</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">ind</span><span class="op">$</span><span class="va">cor.coeff</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  horiz <span class="op">=</span> <span class="cn">TRUE</span>, las <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"steelblue"</span>, border <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"Correlation with P2 distance indicator"</span>,</span>
+<span>  cex.names <span class="op">=</span> <span class="fl">0.7</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-cor-plot-1.png" alt="Barplot of correlations between each welfare variable and the P2 distance indicator" width="100%"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">ind</span><span class="op">$</span><span class="va">p2distance</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  las <span class="op">=</span> <span class="fl">3</span>, cex.names <span class="op">=</span> <span class="fl">0.7</span>, col <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"P2 distance (welfare indicator)"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-p2-plot-1.png" alt="Barplot of P2 distance indicator by country, sorted" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
+<p>The P2 distance was proposed by the Spanish economist Jesús B. Peña Trapero to measure social welfare (Peña, 1977), and has since been applied to environmental quality indices, regional development, and inequality studies (see <code><a href="reference/p2distance.html">?p2distance</a></code> for the full formula and additional references).</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>Peña, J. B. (1977). <em>Problemas de la medición del bienestar y conceptos afines (una aplicación al caso Español)</em>. Madrid: Instituto Nacional de Estadística (INE).</p>
+<p>Peña, J. B. (2009). La medición del bienestar social: una revisión crítica. <em>Estudios de Economía Aplicada</em>, 27(2), 299–324.</p>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use this package, please cite it — see <code>citation("p2distance")</code>.</p>
+</div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the p2distance project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -122,8 +169,8 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/ajpelu/p2distance" class="external-link"><img src="https://travis-ci.org/ajpelu/p2distance.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=p2distance" class="external-link"><img src="https://www.r-pkg.org/badges/version/p2distance" alt="CRAN status"></a></li>
+<li><a href="https://github.com/ajpelu/p2distance/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/ajpelu/p2distance/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
 </ul>
 </div>
 

@@ -1,72 +1,75 @@
-# Load CSV file to matrix object
+# Load a CSV file into a matrix object
 
-Load a CSV file to matrix object.
+Reads a text file and converts it into the matrix object expected by
+[`p2distance()`](https://ajpelu.github.io/p2distance/reference/p2distance.md).
 
 ## Usage
 
 ``` r
-loadCSVtoP2distance(path, header=TRUE, sep="\t", dec=".", quote="\"", 
-    na.strings="NA", fileEncoding = "", encoding = "unknown")
+loadCSVtoP2distance(
+  path,
+  header = TRUE,
+  sep = "\t",
+  dec = ".",
+  quote = "\"",
+  na.strings = "NA",
+  fileEncoding = "",
+  encoding = "unknown"
+)
 ```
 
 ## Arguments
 
 - path:
 
-  the path of the file which the data are to be read from. Each row of
+  The path of the file from which the data are to be read. Each row of
   the table appears as one line of the file.
 
 - header:
 
-  a logical value indicating whether the file contains the names of the
-  variables as its first line. If missing, the value is determined from
-  the file format: header is set to TRUE if and only if the first row
-  contains one fewer field than the number of columns.
+  A logical value indicating whether the file contains the names of the
+  variables as its first line.
 
 - sep:
 
-  the field separator character. Values on each line of the file are
-  separated by this character.
+  The field separator character.
 
 - dec:
 
-  the character used in the file for decimal points.
+  The character used in the file for decimal points.
 
 - quote:
 
-  the set of quoting characters. To disable quoting altogether, use
-  quote = "".
+  The set of quoting characters. To disable quoting altogether, use
+  `quote = ""`.
 
 - na.strings:
 
-  a character vector of strings which are to be interpreted as NA
-  values. Blank fields are also considered to be missing values in
-  logical, integer, numeric and complex fields.
+  A character vector of strings to be interpreted as `NA` values.
 
 - fileEncoding:
 
-  character string: if non-empty declares the encoding used on a file
-  (not a connection) so the character data can be re-encoded. See the
-  'Encoding' section of the help for file, the 'R Data Import/Export
-  Manual' and 'Note'.
+  Character string: if non-empty, declares the encoding used in the file
+  so the character data can be re-encoded. See the "Encoding" section of
+  [`?file`](https://rdrr.io/r/base/connections.html).
 
 - encoding:
 
-  encoding to be assumed for input strings. It is used to mark character
-  strings as known to be in Latin-1 or UTF-8 (see Encoding): it is not
-  used to re-encode the input, but allows R to handle encoded strings in
-  their native encoding (if one of those two).
-
-## Details
-
-This function return a matrix object ready for p2distance function. It
-read a text file and it use the first column to give a row name. It uses
-the `read.table` function to read the file.
+  Encoding to be assumed for input strings.
 
 ## Value
 
-A matrix object containing the data of csv file
+A matrix containing the data from the CSV file, ready to be passed to
+[`p2distance()`](https://ajpelu.github.io/p2distance/reference/p2distance.md).
 
-## Author
+## Details
 
-A.J. Perez-Luque; R. Moreno; R. Perez-Perez and F.J. Bonet
+The first column of the file is used to set the row names of the
+resulting matrix (typically the name of each spatial entity), and is
+then removed from the data itself. Internally this uses
+[`utils::read.table()`](https://rdrr.io/r/utils/read.table.html) to read
+the file.
+
+## See also
+
+[`p2distance()`](https://ajpelu.github.io/p2distance/reference/p2distance.md)

@@ -1,182 +1,155 @@
-# Welfare's Synthetic Indicator function
+# Welfare's synthetic indicator (P2 distance)
 
-This function calculates the \\P\_{2}\\ distance synthetic indicator for
-a set of variables.
+Calculates the \\P_2\\ distance synthetic indicator for a set of
+variables. This is the main function of the package.
 
 ## Usage
 
 ``` r
-p2distance(matriz, reference_vector = NULL, reference_vector_function = min, 
-    iterations = 20, umbral = 1e-04)
+p2distance(
+  matriz,
+  reference_vector = NULL,
+  reference_vector_function = min,
+  iterations = 20,
+  umbral = 1e-04
+)
 ```
 
 ## Arguments
 
 - matriz:
 
-  An object of matrix type with spatial entities in rows and variables
-  in columns
+  A matrix with spatial entities in rows and variables in columns.
 
 - reference_vector:
 
-  Optionally. A reference vector defined for each partial indicator so
-  as to compare different spatial entities
+  Optional. A reference vector defined for each partial indicator, used
+  to compare different spatial entities.
 
 - reference_vector_function:
 
-  Optionally. Function to make the reference vector. Minimum es the
-  default. Others common functions used: min, max, mean, median, etc.
-  See
-  [`makeReferenceVector`](https://ajpelu.github.io/p2distance/reference/makeReferenceVector.md)
-  for further details
+  Optional. Function used to build the reference vector when
+  `reference_vector` is not supplied. `min` is the default; other common
+  choices are `max`, `mean`, `median`, etc. See
+  [`makeReferenceVector()`](https://ajpelu.github.io/p2distance/reference/makeReferenceVector.md)
+  for details.
 
 - iterations:
 
-  Numbers of maximum iterations for the computational process until
-  reach the convergence
+  Maximum number of iterations for the computational process until
+  convergence is reached.
 
 - umbral:
 
-  The algorithm stop when the difference between iterations is lower
-  than this umbral
-
-## Details
-
-This is the main function on package. It calculates the Pena distance
-indicator, also called DP2, which is used to measure welfare in
-quality-of-life applications, to create Environmental Quality Indexes,
-etc. (see references). It is a multidimensional indicator capable to
-aggregate various partial indicators (variables) in a unique measure to
-compare the state of different spatial entities. The P2 Distance from a
-spatial entity *r* is definied as \$\$
-DP\_{2}=\sum^{n}\_{i=1}\left\lbrace\left(\frac{d\_{i}}{\sigma\_{i}}\right)\left(1-R^{2}\_{i,i-1,i-2,\ldots,1}\right)\right\rbrace\$\$
-with \\R^{2}\_{1}=0\\; where \\d\_{i}=\|x\_{ri}-x\_{\*i}\|\\ with the
-reference base
-\\X\_{\*}=\left(x\_{\*1},x\_{\*2},\ldots,x\_{\*n}\right)\\ where:
-
-- *n* is the number of variables
-
-- \\x\_{ri}\\, is the value of the variable *i* in the spatial entity
-  *r*
-
-- \\\sigma\_{i}\\ is the standard deviation of variable *i*
-
-- \\R^{2}\_{i,i-1,\ldots,1}\\ is the coefficient of determination in the
-  regression of \\X\_{i}\\ over \\X\_{i-1}, X\_{i-2}, \ldots,X\_{1}\\
-  already included.
-
-The numerical value of the DP2 index has no real meaning, but its is
-useful for comparing the state of different spatial entities in terms of
-welfare, environmental conditions, etc.
+  The algorithm stops when the difference between two consecutive
+  iterations is lower than this threshold.
 
 ## Value
 
-- discrimination.coefficient:
+A list with the following elements:
 
-  Vector of discrimination coefficients (DC) for each variable. The
-  value of DC, defined by Ivanovic (1974) is
-  \$\$DC\_{i}=\frac{2}{m(m-1)}\sum\_{j,l\>j}^{k\_{i}}m\_{ji}m\_{li}\left\|\frac{x\_{ji}-x\_{li}}{\overline{X}\_{i}}\right\|\$\$
-  where *m* is the number of spatial entities and \\m\_{ji}\\ is the
-  absolute frequency of \\x\_{ji}\\. This measure ranges between 0 an 2.
-  If a variable takes the same values for all spatial entities, DC
-  equals zero, indicating zero discriminant power. By contrast, if a
-  variable only has a value other than zero for one spatial entity and
-  in the remainder \\m-1\\, is equal to zero, DC reaches its maximun
-  value (2) and the variable has full discriminant power (see Zarzosa,
-  1996; Zarzosa and Somarriba, 2012). There is an alternative way of
-  calculating the coefficient, by using the Gini
-  index,\$\$DC\_{i}=2\frac{m}{m-1}G\$\$ where *m* is the number of
-  spatial entities and *G* the Gini index
+- `discrimination.coefficient`: Vector of discrimination
+  coefficients (DC) for each variable (Ivanovic, 1974). DC ranges
+  between 0 and 2: a variable with the same value for every spatial
+  entity has DC = 0 (no discriminant power), while a variable with a
+  single non-zero value has DC = 2 (full discriminant power). See
+  Zarzosa (1996) and Zarzosa & Somarriba (2012).
 
-- p2distance:
+- `p2distance`: Vector with the final \\P_2\\ distance value for each
+  spatial entity.
 
-  Vector with the last \\P\_{2}\\ distance value for each spatial entity
+- `p2distances`: Matrix with the \\P_2\\ distance values resulting from
+  each iteration.
 
-- p2distances:
+- `diff_p2distances`: Matrix with the differences between two
+  consecutive \\P_2\\ distances.
 
-  Array with vectors of \\P\_{2}\\ distances values resulting for each
-  iteration
+- `iteration`: Number of iterations performed.
 
-- diff_p2distances:
+- `umbral`: Threshold used to stop the iterations.
 
-  Array with differeces between two contiguous \\P\_{2}\\ distances
+- `variables_sort`: Variable names ordered by entrance order in the last
+  iteration.
 
-- iteration:
+- `correction_factors`: Correction factor for each variable.
 
-  Number of calculated iterations
+- `cor.coeff`: Correlation coefficient of each variable with the
+  calculated \\P_2\\ distance.
 
-- umbral:
+- `partial.Indicators`: For each spatial entity, the difference between
+  the reference vector and the value of each variable, divided by the
+  standard deviation. The sum of all partial indicators for a spatial
+  entity is the Frechet Distance (DF), the maximum value the \\P_2\\
+  distance can reach.
 
-  Threshold in difference for two contiguous \\P\_{2}\\ distances
+## Details
 
-- variables_sort:
+The \\P_2\\ distance, also called DP2, is used to measure welfare in
+quality-of-life applications, to build environmental quality indexes,
+and more generally to aggregate multiple partial indicators (variables)
+into a single measure that allows spatial entities to be compared. For a
+spatial entity *r*, the \\P_2\\ distance is defined as:
+\$\$DP\_{2}=\sum^{n}\_{i=1}\left\lbrace\left(\frac{d\_{i}}{\sigma\_{i}}\right)\left(1-R^{2}\_{i,i-1,i-2,\ldots,1}\right)\right\rbrace\$\$
+with \\R^{2}\_{1}=0\\, where \\d\_{i}=\|x\_{ri}-x\_{\*i}\|\\, with the
+reference base \\X\_{\*}=(x\_{\*1},x\_{\*2},\ldots,x\_{\*n})\\, and:
 
-  Vector with the variable names by entrance order determined by last
-  iteration
+- *n* is the number of variables
 
-- correction_factors:
+- \\x\_{ri}\\ is the value of variable *i* for spatial entity *r*
 
-  Correction Factors for each variable
+- \\\sigma\_{i}\\ is the standard deviation of variable *i*
 
-- cor.coeff:
+- \\R^{2}\_{i,i-1,\ldots,1}\\ is the coefficient of determination of the
+  regression of \\X_i\\ on \\X\_{i-1}, X\_{i-2}, \ldots, X_1\\ already
+  included
 
-  Correlation coefficient for each variable with the synthetic indicator
-  (\\P\_{2}\\ distance) calculated
-
-- partial.Indicators:
-
-  For each spatial entity the difference between the reference vector
-  and the value of each variable divided by the standard deviation. For
-  a spatial entity, the sum of all partial indicators is the Frechet
-  Distance (DF), which is the maximun value that \\P\_{2}\\ distance can
-  reach.
+The numerical value of the DP2 index has no meaning by itself, but it is
+useful for comparing the state of different spatial entities in terms of
+welfare, environmental conditions, etc.
 
 ## References
 
-Ivanovic, B. (1974) Comment ètablir une liste des indicateurs de
-developpment. *Revue de Statistique Apliquée*, **XXII(2)**, 37–50
+Ivanovic, B. (1974). Comment établir une liste des indicateurs de
+developpment. *Revue de Statistique Appliquée*, 22(2), 37-50.
 
-Montero, J. M., Chasco, C. and Larraz, B. (2010). Building an
+Montero, J. M., Chasco, C., & Larraz, B. (2010). Building an
 environmental quality index for a big city: a spatial interpolation
 approach combined with a distance indicator. *Journal of Geographical
-Systems*, **12**, 435–459.
+Systems*, 12, 435-459.
 
-Pena, J. B. (1977). *Problemas de la medición del bienestar y conceptos
+Peña, J. B. (1977). *Problemas de la medición del bienestar y conceptos
 afines (una aplicación al caso Español)*. Madrid: INE.
 
-Pena, J. B. (2009). La medición del bienestar social: una revisión
-crítica. *Estudios de Economía Aplicada*, **27(2)**, 299–324.
+Peña, J. B. (2009). La medición del bienestar social: una revisión
+crítica. *Estudios de Economía Aplicada*, 27(2), 299-324.
 
 Zarzosa, P. (1996). *Aproximación a la medición del Bienestar social*.
-Valladolid: University of Valladolid. 248 pp.
+Valladolid: Universidad de Valladolid.
 
-Zarzosa, P. and Somarriba, N. (2012). An assessment of social welfare in
+Zarzosa, P., & Somarriba, N. (2012). An assessment of social welfare in
 Spain: Territorial analysis using a synthetic welfare indicator. *Social
-Indicators Research*, doi: <http://dx.doi.org/10.1007/s11205-012-0005-0>
+Indicators Research*.
+[doi:10.1007/s11205-012-0005-0](https://doi.org/10.1007/s11205-012-0005-0)
 
-## Author
+## See also
 
-A.J. Perez-Luque; R. Moreno; R. Perez-Perez and F.J. Bonet
+[`makeReferenceVector()`](https://ajpelu.github.io/p2distance/reference/makeReferenceVector.md),
+[`loadCSVtoP2distance()`](https://ajpelu.github.io/p2distance/reference/loadCSVtoP2distance.md)
 
 ## Examples
 
 ``` r
-## Calculate a welfare indicator for 27 countries of Europe 
-data(welfare) 
-
-## Convert welfare dataframe to matrix object 
+## Calculate a welfare indicator for 27 European countries
+data(welfare)
 welfare <- as.matrix(welfare)
 
-## Calculate P2 Distance 
-ind <- p2distance(matriz=welfare, reference_vector_function = min, 
-        iterations = 20)
+ind <- p2distance(welfare, reference_vector_function = min, iterations = 20)
 #> [1] "Iteration 1"
 #> [1] "Iteration 2"
 #> [1] "Iteration 3"
 #> [1] "Iteration 4"
 
 ## Examine the results
-# P2 distance
 ind$p2distance
 #>               p2distance.4
 #> Austria          14.243429
@@ -206,19 +179,13 @@ ind$p2distance
 #> Slovenia         12.005987
 #> Slovakia          9.584544
 #> UnitedKingdom    13.817885
-
-# Iterations to achieve convergence
-ind$iteration 
+ind$iteration
 #> [1] 4
-
-# Order of entry of variables resulting the last iteration
 ind$variables_sort
 #>  [1] "standard"    "social"      "life.satis"  "home"        "happiness"  
 #>  [6] "family"      "night"       "area"        "life.0"      "life.65"    
 #> [11] "job"         "judicial"    "education"   "employement" "people"     
 #> [16] "health"      "inequality"  "stress"      "hobbies"     "dist.school"
-
-# Correction factors of each variable
 ind$correction_factors
 #>    standard      social  life.satis        home   happiness      family 
 #>  1.00000000  0.26994486  0.15647574  0.19019368  0.11374336  0.16464658 
@@ -228,8 +195,6 @@ ind$correction_factors
 #>  0.25202059  0.28405573  0.19859718  0.42516392  0.08949479  0.18883919 
 #>     hobbies dist.school 
 #>  0.07721116  0.15296173 
-
-# Correlations between P2 distance indicator and variables
 ind$cor.coeff
 #>             p2distance.4
 #> happiness      0.8923932
@@ -252,8 +217,6 @@ ind$cor.coeff
 #> stress        -0.4232577
 #> employement    0.6416367
 #> job            0.7744487
-
-# Discrimination coefficient of each variable
 ind$discrimination.coefficient
 #>   happiness  life.satis    judicial       night      social      people 
 #>  0.08033682  0.22114042  0.37154869  0.21365413  0.19085162  0.21602518 
@@ -264,7 +227,9 @@ ind$discrimination.coefficient
 #> employement         job 
 #>  0.10930471  0.13470473 
 
-## Plot of P2 Distance Indicator for European countries
-barplot(ind$p2distance, beside=TRUE, col="white", space=.3, ylab="P2 distance", 
-      ylim=c(0,20), names.arg=rownames(ind$p2distance), las=3, cex.names=0.8)
+## Plot of the P2 distance indicator for European countries
+barplot(ind$p2distance, beside = TRUE, col = "white", space = .3,
+  ylab = "P2 distance", ylim = c(0, 20),
+  names.arg = rownames(ind$p2distance), las = 3, cex.names = 0.8)
+
 ```

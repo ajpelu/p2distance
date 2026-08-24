@@ -1,9 +1,10 @@
-# Welfare Indicators of European Countries
+# Welfare indicators of European countries
 
-Quality of life's indicators (*welfare indicators*) of 27 countries of
-European Union during 2002-2007 period. For each variable (i.e.
-*indicator*) both, definition and year is specified. The source is
-available in EurLIFE (see details)
+Quality of life indicators (*welfare indicators*) for 27 countries of
+the European Union during the 2002-2007 period. For each variable (i.e.
+indicator), both its definition and the year it refers to are given. The
+data come from EurLIFE, an interactive database on quality of life in
+Europe (see Source).
 
 ## Usage
 
@@ -13,141 +14,97 @@ data(welfare)
 
 ## Format
 
-A data frame with 27 observations on the following 20 variables.
+A data frame with 27 rows and 20 columns:
 
-- `happiness`:
+- `happiness`: Mean value on a scale from 1 ("very unhappy") to 10
+  ("very happy"). Year: 2007.
 
-  Mean value on a scale of 1 'Very unhappy' to 10 'Very happy'. Year:
-  2007
+- `life.satis`: Life satisfaction. Share of individuals aged 15 and over
+  who are very or fairly satisfied with the life they lead. Year: 2006.
 
-- `life.satis`:
+- `judicial`: Trust in the judicial system. Percentage of people aged 15
+  and over who tend to trust justice or the legal system. Year: 2005.
 
-  Life satisfaction: Share of individuals aged 15 and over who are very
-  satisfied or fairly satisfied with the life they lead. Year: 2006
+- `night`: Unsafe to walk around at night. Percentage of individuals
+  aged 18 and over who think it is very or rather unsafe to walk around
+  the area they live in at night. Year: 2003.
 
-- `judicial`:
+- `social`: Satisfaction with social life. Percentage of the population
+  aged 15 and over who are very or fairly satisfied with their social
+  life. Year: 2004.
 
-  Trust in the judicial system: Percentage of people aged 15 and over
-  who tend to trust in justice or the legal system. Year: 2005
+- `people`: Trust in people. Mean value on a scale from 1 ("you can't be
+  too careful in dealing with people") to 10 ("most people can be
+  trusted"). Year: 2007.
 
-- `night`:
+- `family`: Satisfaction with family life. Mean value on a scale from 1
+  ("very dissatisfied") to 10 ("very satisfied"). Year: 2007.
 
-  Unsafe to walk around at night: Percentage of individuals aged 18 and
-  over who think that it is very unsafe or rather unsafe to walk around
-  the area they live at night. Year: 2003
+- `health`: Satisfaction with the national health care system.
+  Percentage of individuals who are very or fairly satisfied with their
+  national health system. Year: 2002.
 
-- `social`:
+- `life.65`: Life expectancy at age 65. Average number of further years
+  a person aged 65 would live if age-specific mortality rates remained
+  constant. Year: 2003.
 
-  Satisfaction with social life: Percentage of the poplation aged 15 and
-  over, who are very or fairly satisfied with their social life. Year:
-  2004
+- `life.0`: Life expectancy at birth. Average number of years a person
+  would live if age-specific mortality rates remained constant. Year:
+  2005.
 
-- `people`:
+- `inequality`: Inequality of income distribution. Ratio of the total
+  income received by the 20% of the population with the highest income
+  to that received by the 20% with the lowest income. Year: 2005.
 
-  Trust in people: Mean value on a scale of 1 'You can't be too careful
-  in dealing with people' to 10 'Most people can be trusted'. Year: 2007
+- `hobbies`: Too little time for hobbies and interests. Percentage of
+  people aged 18 and over who have too little time for hobbies and
+  interests. Year: 2007.
 
-- `family`:
+- `education`: Satisfaction with education. Mean value on a scale from 1
+  ("very dissatisfied") to 10 ("very satisfied"). Year: 2007.
 
-  Satisfaction with family life: Mean value on a scale from 1 'very
-  dissatisfied' to 10 'very satisfied' with the family life. Year: 2007
+- `standard`: Satisfaction with standard of living. Mean value on a
+  scale from 1 ("very dissatisfied") to 10 ("very satisfied"). Year:
+  2007.
 
-- `health`:
+- `dist.school`: Distance to the nearest primary school. Proportion of
+  people aged 15 and over who live within walking distance or within 20
+  minutes of the nearest primary school. Years: 1999, 2005.
 
-  Satisfaction with the national health care system: Percentage of
-  individuals who are very or fairly satisfied with their national
-  health system. Year: 2002
+- `area`: Satisfaction with the area you live in. Share of individuals
+  aged 15 and over who are very or fairly satisfied with the area they
+  live in (five-item scale). Year: 2004.
 
-- `life.65`:
+- `home`: Satisfaction with the home. Share of individuals aged 15 and
+  over who are very or fairly satisfied with their home (four-item
+  scale). Year: 2004.
 
-  Life expectancy at the age of 65: Average number of further years a
-  person at the age of 65 would live if, for the time period, the
-  observed age-specific mortality rates remains constant. Year: 2003
+- `stress`: Find work stressful. Share of people who "strongly agree" or
+  "agree" that their work is too demanding and stressful. Year: 2007.
 
-- `life.0`:
+- `employement`: Employment rate. Employed persons aged 15-64 as a
+  percentage of the total population in that age group. Year: 2005.
 
-  Life expectancy at birth: average number of years a person would live
-  if, for the time period, the observed age-specific mortality rate
-  remains constant. Year: 2005
-
-- `inequality`:
-
-  Inequality of income distribution: The ratio of total income received
-  by the 20% of the population with the highest income (top quintile) to
-  that received by the 20% of the population with the lowest income
-  (lowest quintile). Year: 2005
-
-- `hobbies`:
-
-  Too little time for hobbies and interests: Percentage of people aged
-  18 and over having too little time for hobbies and interests. Year:
-  2007
-
-- `education`:
-
-  Satisfaction with education: mean value on a scale of 1 'Very
-  dissatisfied' to 10 'Very satisfied' with their own education. Year:
-  2007
-
-- `standard`:
-
-  Satisfaction with standard of living: Mean value on a scale of 1 'very
-  dissatisfied' to 10 'very satisfied' with the own present standard of
-  living. Year: 2007
-
-- `dist.school`:
-
-  Distance to the nearest primary school: Proportion of people aged 15
-  and over who live within walking distance or within 20 minutes of the
-  nearest primary school. Year: 1999, 2005
-
-- `area`:
-
-  Satisfaction with the area you live in: Share of individuals aged 15
-  and over who are very satisfied or fairly satisfied with area they
-  live on a five item scale. Year: 2004
-
-- `home`:
-
-  Satisfaction with the home: Share of individuals aged 15 and over who
-  are very satisfied or fairly satisfied with their home on a four item
-  scale. Year: 2004
-
-- `stress`:
-
-  Find work stressful: Share of people who 'strongly agree' or 'agree'
-  that their work is too demanding and stressful. Year: 2007
-
-- `employement`:
-
-  Employment rate: Employed persons aged 15-64 as a percentage of the
-  total population in that age group. Year: 2005
-
-- `job`:
-
-  Job Satisfaction: Percentage of employed people who are very or fairly
-  satisfied with their job, measured on a four item scale. Year: 2005
-
-## Details
-
-These quality of life indicators come from different sources (Standard
-Eurobarometer Surveys; European Quality of Life Surveys; Eurostat;
-European Foundation for Improvement of Living and Working Conditions)
-that are available from EurLIFE, a interactive database on quality of
-life in Europe (see source below).
+- `job`: Job satisfaction. Percentage of employed people who are very or
+  fairly satisfied with their job (four-item scale). Year: 2005.
 
 ## Source
 
 EurLIFE database. Interactive database on quality of life in Europe.
 European Foundation for the Improvement of Living and Working Conditions
-(Eurofound).
-<http://www.eurofound.europa.eu/areas/qualityoflife/eurlife/index.php> -
-Accessed 20 Feb 2012
+(Eurofound). Accessed 20 Feb 2012.
+
+## Details
+
+These quality of life indicators come from different sources (Standard
+Eurobarometer Surveys, European Quality of Life Surveys, Eurostat,
+European Foundation for the Improvement of Living and Working
+Conditions) collated by EurLIFE.
 
 ## References
 
-Somarriba, N. and Pena, B. (2009). Syntheic Indicators of Quality of
-Life in Europe. *Social Indicators Research*, **94**, 115–133.
+Somarriba, N., & Peña, B. (2009). Synthetic Indicators of Quality of
+Life in Europe. *Social Indicators Research*, 94, 115-133.
 
 ## Examples
 
