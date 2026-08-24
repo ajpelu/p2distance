@@ -16,14 +16,14 @@
 Source:
 [`inst/CITATION`](https://github.com/ajpelu/p2distance/blob/master/inst/CITATION)
 
-Pérez-Luque Antonio J., Moreno R., Pérez-Pérez R., Bonet-García F.J.
-(2012). p2distance: Welfare's Synthetic Indicator. R package version
-1.0.1. https://CRAN.R-project.org/package=p2distance
+Pérez-Luque A, Moreno R, Pérez-Pérez R, Bonet-García F (2012).
+*p2distance: Welfare's Synthetic Indicator*. R package version 1.0.2,
+<https://CRAN.R-project.org/package=p2distance>.
 
-    @Manual{p2distance-package,
+    @Manual{,
       title = {p2distance: Welfare's Synthetic Indicator},
       author = {Antonio J. Pérez-Luque and Ricardo Moreno and Ramón Pérez-Pérez and Francisco J. Bonet-García},
       year = {2012},
-      note = {R package version 1.0.1},
+      note = {R package version 1.0.2},
       url = {https://CRAN.R-project.org/package=p2distance},
     }
