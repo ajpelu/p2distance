@@ -24,3 +24,5 @@ LazyLoad: yes
 URL: https://github.com/ajpelu/p2distance, https://ajpelu.github.io/p2distance/
 BugReports: https://github.com/ajpelu/p2distance/issues
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
