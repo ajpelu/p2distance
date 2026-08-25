@@ -11,10 +11,10 @@ status](https://www.r-pkg.org/badges/version/p2distance)](https://CRAN.R-project
 <!-- badges: end -->
 
 `p2distance` computes the **P<sub>2</sub> distance** synthetic indicator
-(Pena, 1977), a method for combining several partial indicators —
-quality of life, welfare, environmental quality, development, and so on
-— into a single measure that lets you compare different entities
-(countries, regions, cities…) on a common scale.
+(Pena, 1977), a method for combining several partial indicators (quality
+of life, welfare, environmental quality, development) into a single
+measure that lets you compare different entities (countries, regions,
+cities…) on a common scale.
 
 Unlike Principal Component Analysis or other traditional aggregation
 methods, P<sub>2</sub> avoids arbitrary weighting: each variable is
@@ -95,8 +95,6 @@ barplot(
 ```
 
 <img src="man/figures/README-p2-plot-1.png" alt="Barplot of P2 distance indicator by country, sorted" width="100%" />
-
-## Background
 
 ## Background
 

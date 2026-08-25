@@ -21,8 +21,8 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 `p2distance` computes the **P<sub>2</sub> distance** synthetic indicator (Pena, 1977), a
-method for combining several partial indicators — quality of life, welfare,
-environmental quality, development, and so on — into a single measure that
+method for combining several partial indicators (quality of life, welfare,
+environmental quality, development) into a single measure that
 lets you compare different entities (countries, regions, cities...) on a
 common scale.
 
@@ -85,8 +85,6 @@ barplot(
   ylab = "P2 distance (welfare indicator)"
 )
 ```
-
-## Background
 
 ## Background
 
