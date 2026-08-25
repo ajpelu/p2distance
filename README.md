@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# p2distance
+## <span style="color:#12545a">**p2distance**</span> <a href="https://ajpelu.github.io/p2distance/"><img src="man/figures/logo.png" align="right" width="300" alt="p2distance website" /></a>
 
 <!-- badges: start -->
 
@@ -10,14 +10,14 @@ status](https://www.r-pkg.org/badges/version/p2distance)](https://CRAN.R-project
 [![pkgdown](https://github.com/ajpelu/p2distance/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/ajpelu/p2distance/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
-`p2distance` computes the **P2 distance** synthetic indicator (Peña,
-1977), a method for combining several partial indicators — quality of
-life, welfare, environmental quality, development, and so on — into a
-single measure that lets you compare different entities (countries,
-regions, cities…) on a common scale.
+`p2distance` computes the **P<sub>2</sub> distance** synthetic indicator
+(Pena, 1977), a method for combining several partial indicators —
+quality of life, welfare, environmental quality, development, and so on
+— into a single measure that lets you compare different entities
+(countries, regions, cities…) on a common scale.
 
 Unlike Principal Component Analysis or other traditional aggregation
-methods, P2 distance avoids arbitrary weighting: each variable is
+methods, P<sub>2</sub> avoids arbitrary weighting: each variable is
 weighted by how much *new* information it contributes once the variables
 already included are accounted for, using an iterative correction based
 on each variable’s coefficient of determination (R²).
@@ -72,8 +72,8 @@ sort(ind$p2distance[, 1])
 ```
 
 Each variable’s contribution to the indicator can also be inspected —
-here, how strongly each partial indicator correlates with the overall P2
-distance:
+here, how strongly each partial indicator correlates with the overall
+P<sub>2</sub> distance:
 
 ``` r
 barplot(
@@ -98,19 +98,24 @@ barplot(
 
 ## Background
 
-The P2 distance was proposed by the Spanish economist Jesús B. Peña
-Trapero to measure social welfare (Peña, 1977), and has since been
-applied to environmental quality indices, regional development, and
+## Background
+
+The P<sub>2</sub> distance was proposed by the Spanish economist Jesús
+B. Pena Trapero to measure social welfare (Pena, 1977), and has since
+been applied to environmental quality indices, regional development, and
 inequality studies (see `?p2distance` for the full formula and
-additional references).
+additional references). See the
+[Impact](https://ajpelu.github.io/p2distance/articles/articles/citing-works.html)
+article on the package website for real studies that have used
+`p2distance`, together with download statistics.
 
 ## References
 
-Peña, J. B. (1977). *Problemas de la medición del bienestar y conceptos
+Pena, J. B. (1977). *Problemas de la medición del bienestar y conceptos
 afines (una aplicación al caso Español)*. Madrid: Instituto Nacional de
 Estadística (INE).
 
-Peña, J. B. (2009). La medición del bienestar social: una revisión
+Pena, J. B. (2009). La medición del bienestar social: una revisión
 crítica. *Estudios de Economía Aplicada*, 27(2), 299–324.
 
 ## Citation
