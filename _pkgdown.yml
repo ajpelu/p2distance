@@ -2,3 +2,10 @@ url: https://ajpelu.github.io/p2distance/
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    right: [citing, github]
+  components:
+    citing:
+      text: "Citing works"
+      href: articles/citing-works.html

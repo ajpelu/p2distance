@@ -9,3 +9,4 @@
 ^\.claude$
 ^\.github$
 ^cran-comments\.md$
+^vignettes/articles$

@@ -26,3 +26,10 @@ BugReports: https://github.com/ajpelu/p2distance/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
+Config/Needs/website: rmarkdown
+Suggests: 
+    cranlogs,
+    dplyr,
+    ggplot2,
+    lubridate,
+    tidyr
