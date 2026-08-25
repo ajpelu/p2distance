@@ -1,10 +1,10 @@
 ## **p2distance** [![p2distance website](reference/figures/logo.png)](https://ajpelu.github.io/p2distance/)
 
 `p2distance` computes the **P₂ distance** synthetic indicator (Pena,
-1977), a method for combining several partial indicators — quality of
-life, welfare, environmental quality, development, and so on — into a
-single measure that lets you compare different entities (countries,
-regions, cities…) on a common scale.
+1977), a method for combining several partial indicators (quality of
+life, welfare, environmental quality, development) into a single measure
+that lets you compare different entities (countries, regions, cities…)
+on a common scale.
 
 Unlike Principal Component Analysis or other traditional aggregation
 methods, P₂ avoids arbitrary weighting: each variable is weighted by how
@@ -92,8 +92,6 @@ barplot(
 
 ![Barplot of P2 distance indicator by country,
 sorted](reference/figures/README-p2-plot-1.png)
-
-## Background
 
 ## Background
 

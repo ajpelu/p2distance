@@ -43,7 +43,7 @@ Merino Llorente, M. C., Somarriba Arechavala, N., & García Prieto, C.
 between 2010 and 2015? *Revista de Economía Mundial*, (63), 117–137.
 <https://doi.org/10.33776/rem.vi63.7207>
 
-Pérez-Luque, A. J., Moreno-llorca, R. A., Pérez-Pérez, R., &
+Pérez-Luque, A. J., Moreno-Llorca, R. A., Pérez-Pérez, R., &
 Bonet-García, F. J. (2016). Temporal analysis of wellbeing in the
 municipalities of Sierra Nevada. In R. Zamora, A. Pérez-Luque, F. Bonet,
 J. Barea-Azcón, & R. Aspizua (Eds.), *Global change impacts in Sierra
@@ -56,7 +56,7 @@ competitiveness. *Applied Economic Analysis*, *27*(80), 108–126.
 <https://doi.org/10.1108/AEA-07-2019-0010>
 
 Somarriba Arechavala, N., & Zarzosa Espina, P. (2016). Quality of life
-in latin america: A proposal for a synthetic indicator. In G. Tonon
-(Ed.), *Indicators of quality of life in latin america* (pp. 19–56).
+in latin America: A proposal for a synthetic indicator. In G. Tonon
+(Ed.), *Indicators of quality of life in latin America* (pp. 19–56).
 Springer International Publishing.
 <https://doi.org/10.1007/978-3-319-28842-0_2>
