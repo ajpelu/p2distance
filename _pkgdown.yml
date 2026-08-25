@@ -1,6 +1,7 @@
 url: https://ajpelu.github.io/p2distance/
 template:
   bootstrap: 5
+  math-rendering: katex
 
 navbar:
   structure:
