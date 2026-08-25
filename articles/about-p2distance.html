@@ -11,7 +11,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -76,8 +77,7 @@ concepts. No single variable (income, GDP, etc.) fully captures them,
 but combining many indicators into one synthetic measure raises a hard
 question: how do you aggregate variables expressed in different units
 and, above all, avoid double-counting the information that several
-correlated indicators share? The
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
+correlated indicators share? The <span class="math inline">P_2</span>
 distance <span class="citation">(Pena, 1977)</span> was designed to
 solve exactly this problem. It is a distance-based synthetic indicator:
 instead of choosing arbitrary weights for each variable, it measures how
@@ -99,189 +99,132 @@ follows the notation of that paper.</p>
 <div class="section level3">
 <h3 id="the-data-matrix-and-the-reference-vector">1. The data matrix and the reference vector<a class="anchor" aria-label="anchor" href="#the-data-matrix-and-the-reference-vector"></a>
 </h3>
-<p>The starting point is a matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-of order
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(m, n)</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-is the number of spatial (or statistical) units (e.g. municipalities,
-countries, households) and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-is the number of variables (indicators). Each element
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><annotation encoding="application/x-tex">x_{ri}</annotation></semantics></math>
-is the value of variable
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-in unit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.</p>
+<p>The starting point is a matrix <span class="math inline">X</span> of
+order <span class="math inline">(m, n)</span>, where <span class="math inline">m</span> is the number of spatial (or statistical)
+units (e.g. municipalities, countries, households) and <span class="math inline">n</span> is the number of variables (indicators).
+Each element <span class="math inline">x_{ri}</span> is the value of
+variable <span class="math inline">i</span> in unit <span class="math inline">r</span>.</p>
 <p>To measure how far each unit is from an ideal or reference situation,
-a <strong>reference vector</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mo>*</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>*</mi><mn>1</mn></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>*</mi><mn>2</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>x</mi><mrow><mi>*</mi><mi>n</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_* = (x_{*1}, x_{*2}, \ldots, x_{*n})</annotation></semantics></math>
-must be defined: one reference value per variable. Any vector that
-represents the condition against which units are to be compared can be
-used (the minimum, the maximum, an average, a user-defined target,
-etc.). The minimum value is often used in sociological studies <span class="citation">(Rodríguez Martín, 2011; Somarriba &amp; Pena, 2009;
-Zarzosa &amp; Somarriba, 2012)</span>, which is the default used by
-<code><a href="../reference/makeReferenceVector.html">makeReferenceVector()</a></code>; but any other vector that reflects
-the ideal condition against which the units are to be compared can also
-be used.</p>
+a <strong>reference vector</strong> <span class="math inline">X_* =
+(x_{*1}, x_{*2}, \ldots, x_{*n})</span> must be defined: one reference
+value per variable. Any vector that represents the condition against
+which units are to be compared can be used (the minimum, the maximum, an
+average, a user-defined target, etc.). The minimum value is often used
+in sociological studies <span class="citation">(Rodríguez Martín, 2011;
+Somarriba &amp; Pena, 2009; Zarzosa &amp; Somarriba, 2012)</span>, which
+is the default used by <code><a href="../reference/makeReferenceVector.html">makeReferenceVector()</a></code>; but any other
+vector that reflects the ideal condition against which the units are to
+be compared can also be used.</p>
 </div>
 <div class="section level3">
 <h3 id="partial-distances">2. Partial distances<a class="anchor" aria-label="anchor" href="#partial-distances"></a>
 </h3>
 <p>For every variable, the distance between each unit and the reference
 value is calculated:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>x</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>*</mi><mi>i</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>r</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi><mo>;</mo><mspace width="0.278em"></mspace><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">Eq. 1</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_{ri} = |x_{ri} - x_{*i}|, \qquad r = 1, \ldots, m; \; i = 1, \ldots, n \qquad (\text{Eq. 1})</annotation></semantics></math></p>
+<p><span class="math display">d_{ri} = |x_{ri} - x_{*i}|, \qquad r = 1,
+\ldots, m; \; i = 1, \ldots, n \qquad (\text{Eq. 1})</span></p>
 <p>The absolute value is used so that positive and negative deviations
 from the reference are treated the same way <span class="citation">(Somarriba et al., 2014)</span>.</p>
 <p>Because variables are measured in different units, each partial
 distance is standardized by dividing it by the standard deviation of
-that variable,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>σ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\sigma_i</annotation></semantics></math>,
-giving
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><mi>/</mi><msub><mi>σ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_{ri}/\sigma_i</annotation></semantics></math>.</p>
+that variable, <span class="math inline">\sigma_i</span>, giving <span class="math inline">d_{ri}/\sigma_i</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="the-fréchet-distance">3. The Fréchet Distance<a class="anchor" aria-label="anchor" href="#the-fr%C3%A9chet-distance"></a>
 </h3>
 <p>Summing the standardized partial distances across all variables gives
 the <strong>Fréchet Distance</strong>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mfrac><msub><mi>d</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><msub><mi>σ</mi><mi>i</mi></msub></mfrac><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mfrac><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>x</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>*</mi><mi>i</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo></mrow><msub><mi>σ</mi><mi>i</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>r</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">Eq. 2</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">FD(r) = \sum_{i=1}^{n} \frac{d_{ri}}{\sigma_i} = \sum_{i=1}^{n} \frac{|x_{ri}-x_{*i}|}{\sigma_i}, \qquad r = 1, \ldots, m \qquad (\text{Eq. 2})</annotation></semantics></math></p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">FD(r)</annotation></semantics></math>
-is the maximum value the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance can reach for unit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.
-The FD concept of distance is valid only in a theoretical situation of
-uncorrelated indicators. However, it is common to find direct
-relationships between the partial indicators, which implies that FD
-includes duplicate information.</p>
+<p><span class="math display">FD(r) = \sum_{i=1}^{n}
+\frac{d_{ri}}{\sigma_i} = \sum_{i=1}^{n}
+\frac{|x_{ri}-x_{*i}|}{\sigma_i}, \qquad r = 1, \ldots, m \qquad
+(\text{Eq. 2})</span></p>
+<p><span class="math inline">FD(r)</span> is the maximum value the <span class="math inline">P_2</span> distance can reach for unit <span class="math inline">r</span>. The FD concept of distance is valid only
+in a theoretical situation of uncorrelated indicators. However, it is
+common to find direct relationships between the partial indicators,
+which implies that FD includes duplicate information.</p>
 </div>
 <div class="section level3">
 <h3 id="the-correction-factor">4. The correction factor<a class="anchor" aria-label="anchor" href="#the-correction-factor"></a>
 </h3>
 <p>To remove that redundancy, each partial indicator is weighted by a
-<strong>correction factor</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msubsup><mi>R</mi><mrow><mi>i</mi><mo>,</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1 - R^2_{i,i-1,\ldots,1})</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>R</mi><mrow><mi>i</mi><mo>,</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>1</mn></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">R^2_{i,i-1,\ldots,1}</annotation></semantics></math>
-is the coefficient of determination of the linear regression of
-indicator
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-on all the indicators that have already entered the index
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>i</mi><mo>−</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i-1, i-2, \ldots, 1</annotation></semantics></math>).
-This coefficient measures the proportion of the variance of indicator
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-that is already explained by (linearly dependent on) the indicators
-already included. The factor
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>R</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1 - R^2)</annotation></semantics></math>
-therefore keeps only the genuinely <em>new</em> information that
-indicator
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-contributes and discards what is redundant with the indicators before it
-<span class="citation">(Pena, 1977)</span>. If all the indicators are
-mutually uncorrelated, every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R^2 = 0</annotation></semantics></math>
-and the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance simply equals
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">FD</annotation></semantics></math>.</p>
+<strong>correction factor</strong> <span class="math inline">(1 -
+R^2_{i,i-1,\ldots,1})</span>, where <span class="math inline">R^2_{i,i-1,\ldots,1}</span> is the coefficient of
+determination of the linear regression of indicator <span class="math inline">i</span> on all the indicators that have already
+entered the index (<span class="math inline">i-1, i-2, \ldots,
+1</span>). This coefficient measures the proportion of the variance of
+indicator <span class="math inline">i</span> that is already explained
+by (linearly dependent on) the indicators already included. The factor
+<span class="math inline">(1 - R^2)</span> therefore keeps only the
+genuinely <em>new</em> information that indicator <span class="math inline">i</span> contributes and discards what is redundant
+with the indicators before it <span class="citation">(Pena,
+1977)</span>. If all the indicators are mutually uncorrelated, every
+<span class="math inline">R^2 = 0</span> and the <span class="math inline">P_2</span> distance simply equals <span class="math inline">FD</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="the-p2-distance">5. The P2 distance<a class="anchor" aria-label="anchor" href="#the-p2-distance"></a>
 </h3>
 <p>Applying the correction factor to every term of the sum gives the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">{</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>d</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><msub><mi>σ</mi><mi>i</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msubsup><mi>R</mi><mrow><mi>i</mi><mo>,</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>i</mi><mo>−</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">}</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>r</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">Eq. 3</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_2(r) = \sum_{i=1}^{n} \left\{ \left(\frac{d_{ri}}{\sigma_i}\right)\left(1 - R^2_{i,i-1,i-2,\ldots,1}\right) \right\}, \qquad r = 1, \ldots, m \qquad (\text{Eq. 3})</annotation></semantics></math></p>
+<span class="math inline">P_2</span> distance:</p>
+<p><span class="math display">P_2(r) = \sum_{i=1}^{n} \left\{
+\left(\frac{d_{ri}}{\sigma_i}\right)\left(1 -
+R^2_{i,i-1,i-2,\ldots,1}\right) \right\}, \qquad r = 1, \ldots, m \qquad
+(\text{Eq. 3})</span></p>
 </div>
 <div class="section level3">
 <h3 id="ordering-the-variables-and-iterating-to-convergence">6. Ordering the variables, and iterating to convergence<a class="anchor" aria-label="anchor" href="#ordering-the-variables-and-iterating-to-convergence"></a>
 </h3>
-<p>The equation for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-depends on the <em>order</em> in which variables enter the index: the
-regression used for the correction factor of variable
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+<p>The equation for <span class="math inline">P_2</span> depends on the
+<em>order</em> in which variables enter the index: the regression used
+for the correction factor of variable <span class="math inline">i</span>
 is always on the variables that came before it. Deciding that order is
 not arbitrary: <code><a href="../reference/p2distance.html">p2distance()</a></code> uses the iterative procedure of
 <span class="citation">Montero et al. (2010)</span> to find it:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Compute the partial indicators</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>r</mi><mi>i</mi></mrow></msub><mi>/</mi><msub><mi>σ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_{ri}/\sigma_i</annotation></semantics></math>
-from the data matrix and the reference vector (Eq. 1).</li>
+<strong>Compute the partial indicators</strong> <span class="math inline">d_{ri}/\sigma_i</span> from the data matrix and the
+reference vector (Eq. 1).</li>
 <li>
-<strong>Compute the Fréchet Distance</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">FD(r)</annotation></semantics></math>
-for every unit (Eq. 2).</li>
+<strong>Compute the Fréchet Distance</strong> <span class="math inline">FD(r)</span> for every unit (Eq. 2).</li>
 <li>
 <strong>Determine the order of entrance</strong> of the variables:
-since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">FD</annotation></semantics></math>
-already summarizes the information of all the partial indicators, the
-variable most strongly correlated with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">FD</annotation></semantics></math>
-is the one that contributes most variance to the index, so it enters
-first. The correlation of every partial indicator with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">FD</annotation></semantics></math>
-ranks the remaining variables for this first pass.</li>
+since <span class="math inline">FD</span> already summarizes the
+information of all the partial indicators, the variable most strongly
+correlated with <span class="math inline">FD</span> is the one that
+contributes most variance to the index, so it enters first. The
+correlation of every partial indicator with <span class="math inline">FD</span> ranks the remaining variables for this
+first pass.</li>
 <li>
-<strong>Compute the correction factors</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>R</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1-R^2)</annotation></semantics></math>
-for each variable, following that order.</li>
+<strong>Compute the correction factors</strong> <span class="math inline">(1-R^2)</span> for each variable, following that
+order.</li>
 <li>
-<strong>Compute a first
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance</strong>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mn>1</mn></msubsup><annotation encoding="application/x-tex">P_2^{1}</annotation></semantics></math>,
-applying Eq. 3 with the order and correction factors from steps
-3–4.</li>
+<strong>Compute a first <span class="math inline">P_2</span>
+distance</strong>, <span class="math inline">P_2^{1}</span>, applying
+Eq. 3 with the order and correction factors from steps 3–4.</li>
 <li>
 <strong>Check for convergence</strong>: the correlation of every
-variable with this new
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mn>1</mn></msubsup><annotation encoding="application/x-tex">P_2^{1}</annotation></semantics></math>
-index is used to re-rank the order of entrance, and the whole procedure
-(steps 3–5) is repeated to obtain
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mn>2</mn></msubsup><annotation encoding="application/x-tex">P_2^{2}</annotation></semantics></math>,
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mn>3</mn></msubsup><annotation encoding="application/x-tex">P_2^{3}</annotation></semantics></math>,
-and so on. The algorithm stops as soon as two consecutive iterations
-agree — i.e. the first
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mi>j</mi></msubsup><annotation encoding="application/x-tex">P_2^{j}</annotation></semantics></math>
-for which
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>P</mi><mn>2</mn><mi>j</mi></msubsup><mo>=</mo><msubsup><mi>P</mi><mn>2</mn><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">P_2^{j} = P_2^{j+1}</annotation></semantics></math>
-is the final
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance returned for every unit.</li>
+variable with this new <span class="math inline">P_2^{1}</span> index is
+used to re-rank the order of entrance, and the whole procedure (steps
+3–5) is repeated to obtain <span class="math inline">P_2^{2}</span>,
+then <span class="math inline">P_2^{3}</span>, and so on. The algorithm
+stops as soon as two consecutive iterations agree — i.e. the first <span class="math inline">P_2^{j}</span> for which <span class="math inline">P_2^{j} = P_2^{j+1}</span> is the final <span class="math inline">P_2</span> distance returned for every unit.</li>
 </ol>
 <p>The following figure summarizes this procedure: (1) the partial
 indicators are computed from the initial data matrix using the reference
 vector; (2) the Fréchet Distance is computed; (3) the order of entrance
 of the variables is determined from the correlation between the partial
 indicators and FD; (4) once the matrix is reordered, the correction
-factor of each variable is obtained; (5) the first
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mn>1</mn></msubsup><annotation encoding="application/x-tex">P_2^{1}</annotation></semantics></math>,
-is computed by applying Eq. (3); (6) the difference between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mi>j</mi></msubsup><annotation encoding="application/x-tex">P_2^{j}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msubsup><annotation encoding="application/x-tex">P_2^{j-1}</annotation></semantics></math>
-is evaluated (in the initial iteration, FD and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mn>1</mn></msubsup><annotation encoding="application/x-tex">P_2^{1}</annotation></semantics></math>
-are compared) — if the difference is zero, the algorithm stops;
-otherwise, the matrix is reordered according to the correlation of the
-partial indicators with the last
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mn>2</mn><mi>j</mi></msubsup><annotation encoding="application/x-tex">P_2^{j}</annotation></semantics></math>
-obtained, and a new
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-is computed.</p>
+factor of each variable is obtained; (5) the first <span class="math inline">P_2</span> distance, <span class="math inline">P_2^{1}</span>, is computed by applying Eq. (3); (6)
+the difference between <span class="math inline">P_2^{j}</span> and
+<span class="math inline">P_2^{j-1}</span> is evaluated (in the initial
+iteration, FD and <span class="math inline">P_2^{1}</span> are compared)
+— if the difference is zero, the algorithm stops; otherwise, the matrix
+is reordered according to the correlation of the partial indicators with
+the last <span class="math inline">P_2^{j}</span> obtained, and a new
+<span class="math inline">P_2</span> is computed.</p>
 <div class="float">
 <img src="p2d-flowchart.jpg" alt="The iterative six-step procedure used to compute the P_2 distance, adapted from Fig. 2 of Bonet-García et al. (2015)."><div class="figcaption">The iterative six-step procedure used to compute
-the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-distance, adapted from Fig. 2 of Bonet-García et al. (2015).</div>
+the <span class="math inline">P_2</span> distance, adapted from Fig. 2
+of Bonet-García et al. (2015).</div>
 </div>
 </div>
 </div>
@@ -292,20 +235,14 @@ distance, adapted from Fig. 2 of Bonet-García et al. (2015).</div>
 method to compare human well-being in Andalusian municipalities
 (southern Spain) in 1989 and 2009, combining 22 socioeconomic indicators
 (population, health, employment, income, infrastructure, education,
-culture and social participation) into a single
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mn>2</mn></msub><annotation encoding="application/x-tex">P_2</annotation></semantics></math>
-well-being index. Well-being increased significantly between the two
-years, and the increase was significantly larger in municipalities
-located within Natural or National Parks than in unprotected ones
-(well-being ratio
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.144</mn><annotation encoding="application/x-tex">1.144</annotation></semantics></math>
-vs.
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.121</mn><annotation encoding="application/x-tex">1.121</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.0066</mn></mrow><annotation encoding="application/x-tex">p = 0.0066</annotation></semantics></math>),
-evidence, according to the authors, of a spatial association between
-long-term protected-area management and improvements in local human
-well-being. See the full paper for the complete indicator list,
-methodology and results.</p>
+culture and social participation) into a single <span class="math inline">P_2</span> well-being index. Well-being increased
+significantly between the two years, and the increase was significantly
+larger in municipalities located within Natural or National Parks than
+in unprotected ones (well-being ratio <span class="math inline">1.144</span> vs. <span class="math inline">1.121</span>, <span class="math inline">p =
+0.0066</span>), evidence, according to the authors, of a spatial
+association between long-term protected-area management and improvements
+in local human well-being. See the full paper for the complete indicator
+list, methodology and results.</p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
