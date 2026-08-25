@@ -6,6 +6,9 @@ navbar:
   structure:
     right: [citing, github]
   components:
+    about:
+      text: "About P2 distance"
+      href: articles/articles/about-p2distance.html
     citing:
       text: "Citing works"
-      href: articles/citing-works.html
+      href: articles/articles/citing-works.html
