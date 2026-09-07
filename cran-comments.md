@@ -16,6 +16,10 @@ pre-test on the previous attempt:
   a raw URL.
 * Added `cran-comments.md` to `.Rbuildignore` so it is no longer flagged
   as a non-standard top-level file.
+* Replaced print() with message() in R/p2distance.R (line previously used print()
+  to report iteration progress, which could not be suppressed).
+* Added references describing the method to the Description field of DESCRIPTION,
+  using the <doi:...> and (ISBN:...) formats.
 
 Documentation has also been rewritten with roxygen2 for maintainability.
 
