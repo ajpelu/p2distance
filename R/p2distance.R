@@ -213,7 +213,7 @@ p2distance <-
     iteracion <- 1 #indice de las iteraciones	
     repeat{
       
-      print(paste("Iteration", iteracion))
+      message(paste("Iteration", iteracion))
       
       #Ordenamos las variables según la importancia con respecto al vector
       nombres.Ord <- ordenarVariables(mDif, dp2_aux)
