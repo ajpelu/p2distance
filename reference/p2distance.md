@@ -144,10 +144,10 @@ data(welfare)
 welfare <- as.matrix(welfare)
 
 ind <- p2distance(welfare, reference_vector_function = min, iterations = 20)
-#> [1] "Iteration 1"
-#> [1] "Iteration 2"
-#> [1] "Iteration 3"
-#> [1] "Iteration 4"
+#> Iteration 1
+#> Iteration 2
+#> Iteration 3
+#> Iteration 4
 
 ## Examine the results
 ind$p2distance
